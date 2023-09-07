@@ -12,7 +12,7 @@
 
 <div class="card mb-3">
     <div class="card-header">
-        Категория: <a href="{{ news_item.category.get_absolute_url}}"> {{ news_item.category }}</a>
+        Категория: <a href="{{ news_item.category.get_absolute_url}}, {{ news_item.total_views }}">{{ news_item.category }}</a>
     </div>
     <div class="card-body">
         <div class="media">
