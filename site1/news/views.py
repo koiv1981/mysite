@@ -5,9 +5,27 @@ from django.views.generic import ListView, DetailView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.contrib import messages
+from django.core.mail import send_mail
 
 from .models import News, Category
-from .forms import NewsForm, UserRegisterForm, UserLoginForm
+from .forms import NewsForm, UserRegisterForm, UserLoginForm, ContactForm
+
+
+def user_contact(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            mail = send_mail(form.cleaned_data['subject'], form.cleaned_data['content'], 'koiv2@yandex.ru', ['koiv@inbox.ru', 'koiv1981@gmail.ru'], fail_silently=True)
+            if mail:
+                messages.success(request, "Письмо успешно отправлено!")
+                return redirect('contact')
+            else:
+                messages.error(request, "Ошибка отправки")
+        else:
+            messages.error(request, "Ошибка ввода!")
+    else:
+        form = ContactForm()
+    return render(request, 'news/contact.html', {"form": form})
 
 
 
