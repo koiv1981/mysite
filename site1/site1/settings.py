@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'ckeditor',
     'ckeditor_uploader',
+    'captcha',
 
 ]
 
@@ -145,6 +146,8 @@ EMAIL_ADMIN = EMAIL_HOST_USER
 
 CKEDITOR_UPLOAD_PATH = 'uploads/'
 
+CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.math_challenge'
+
 CKEDITOR_CONFIGS = {
     'default': {
         'skin': 'moono',
@@ -192,7 +195,7 @@ CKEDITOR_CONFIGS = {
         # 'mathJaxLib': '//cdn.mathjax.org/mathjax/2.2-latest/MathJax.js?config=TeX-AMS_HTML',
         'tabSpaces': 4,
         'extraPlugins': ','.join([
-            'uploadimage', # the upload image feature
+            'uploadimage',  # the upload image feature
             # your extra plugins here
             'div',
             'autolink',
@@ -207,5 +210,12 @@ CKEDITOR_CONFIGS = {
             'dialogui',
             'elementspath'
         ]),
+    }
+}
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': os.path.join(BASE_DIR, 'django_cache'),
     }
 }

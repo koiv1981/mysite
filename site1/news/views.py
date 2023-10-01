@@ -15,7 +15,8 @@ def user_contact(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
-            mail = send_mail(form.cleaned_data['subject'], form.cleaned_data['content'], 'koiv2@yandex.ru', ['koiv@inbox.ru', 'koiv1981@gmail.ru'], fail_silently=True)
+            mail = send_mail(form.cleaned_data['subject'], form.cleaned_data['content'],
+                             "koiv2@yandex.ru", ['koiv@inbox.ru', 'koiv1981@gmail.ru'], fail_silently=True)
             if mail:
                 messages.success(request, "Письмо успешно отправлено!")
                 return redirect('contact')
@@ -26,7 +27,6 @@ def user_contact(request):
     else:
         form = ContactForm()
     return render(request, 'news/contact.html', {"form": form})
-
 
 
 def register(request):
@@ -43,6 +43,7 @@ def register(request):
         form = UserRegisterForm()
     return render(request, 'news/register.html', {"form": form})
 
+
 def user_login(request):
     if request.method == 'POST':
         form = UserLoginForm(data=request.POST)
@@ -55,6 +56,7 @@ def user_login(request):
     else:
         form = UserLoginForm()
     return render(request, 'news/login.html', {"form": form})
+
 
 def user_logout(request):
     logout(request)
@@ -90,16 +92,6 @@ class HomeCategory(ListView):
 
     def get_queryset(self):
         return News.objects.filter(category_id=self.kwargs['category_id'], is_published=True).select_related('category')
-
-
-def get_context_data(self, *, object_list=None, **kwargs):
-    context = super(HomeCategory, self).get_context_data(**kwargs)
-    context['title'] = Category.objects.get(pk=self.kwargs['category_id'])
-    return context
-
-
-def get_queryset(self):
-    return News.objects.filter(category_id=self.kwargs['category_id'], is_published=True)
 
 
 class ViewNews(DetailView):

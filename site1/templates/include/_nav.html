@@ -1,24 +1,24 @@
 <nav class="navbar navbar-expand-lg bg-light">
     <div class="container-fluid">
         <a class="navbar-brand" href="{% url 'home' %}">Главная</a>
- <span class="sidebar-text">
-                    <a href="{% url 'contact' %}">Обратная связь</a>
-            </span>
+
+        <a class="navbar-brand" href="{% url 'contact' %}">Обратная связь</a>
+
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                     {% if request.user.is_authenticated %}
-                <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'add_news' %}">Добавить
-                    новость</a>
+                    <a class="navbar-brand" href="{% url 'add_news' %}">Добавить новость</a>
                     {% endif %}
             </ul>
-            <span class="navbar-text">
+            <span class="navbar-brand">
                              {% if request.user.is_authenticated %}
-                    Добро пожаловать, {{ user.username }} | <a href="{% url 'logout' %}">Выход</a>
+                    Добро пожаловать, {{ user.username }} | <a class="navbar-brand" href="{% url 'logout' %}">Выход</a>
 
                 {% else %}
-                    <a href="{% url 'register' %}">Регистрация</a> | <a href="{% url 'login' %}">Авторизация</a>
+                    <a class="navbar-brand" href="{% url 'register' %}">Регистрация</a>|  <a class="navbar-brand"
+                                                                                             href="{% url 'login' %}">Авторизация</a>
                 {% endif %}
             </span>
             <form class="d-flex" role="search">
